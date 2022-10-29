@@ -121,7 +121,7 @@ mappings = {
             "device_class": "temperature",
             "name": "Temperature",
             "unit_of_measurement": "°C",
-            "value_template": "{{ value|float }}",
+            "value_template": "{{ value|float|round(1) }}",
             "state_class": "measurement"
         }
     },
@@ -132,7 +132,7 @@ mappings = {
             "device_class": "temperature",
             "name": "Temperature 1",
             "unit_of_measurement": "°C",
-            "value_template": "{{ value|float }}",
+            "value_template": "{{ value|float|round(1) }}",
             "state_class": "measurement"
         }
     },
@@ -143,7 +143,7 @@ mappings = {
             "device_class": "temperature",
             "name": "Temperature 2",
             "unit_of_measurement": "°C",
-            "value_template": "{{ value|float }}",
+            "value_template": "{{ value|float|round(1) }}",
             "state_class": "measurement"
         }
     },
@@ -154,7 +154,7 @@ mappings = {
             "device_class": "temperature",
             "name": "Temperature",
             "unit_of_measurement": "°F",
-            "value_template": "{{ value|float }}",
+            "value_template": "{{ value|float|round(1) }}",
             "state_class": "measurement"
         }
     },
@@ -336,7 +336,7 @@ mappings = {
         "config": {
             "name": "Rain Total",
             "unit_of_measurement": "mm",
-            "value_template": "{{ value|float }}",
+            "value_template": "{{ value|float|round(2) }}",
             "state_class": "total_increasing"
         }
     },
@@ -655,7 +655,7 @@ def bridge_event_to_hass(mqttc, topicprefix, data):
         logging.warning("No suitable identifier found for model: ", model)
         return
 
-    if args.ids and data.get("id") not in args.ids:
+    if args.ids and id in data and data.get("id") not in args.ids:
         # not in the safe list
         logging.debug("Device (%s) is not in the desired list of device ids: [%s]" % (data.get("id"), ids))
         return
